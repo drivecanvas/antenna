@@ -11,6 +11,8 @@ module Antenna
       }
       options[:endpoint] = endpoint if endpoint
       @s3 = Aws::S3::Resource.new(options)
+      p '*' * 1000
+      p 'We have initialized the antenna distributor through the Canvas forked project.'
     end
 
     def setup(ipa_file, options = {})
@@ -30,7 +32,7 @@ module Antenna
 
     def distribute(data, filename, content_type)
       puts "Distributing #{filename} ..."
-      
+
       object = @s3.bucket(@options[:bucket]).put_object({
         :key          => filename,
         :content_type => content_type,
