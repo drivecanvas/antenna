@@ -28,7 +28,7 @@ module Antenna
           app_icon,
           "#{base_filename}.png",
           "image/png",
-        ) 
+        )
       end
 
       # Distribute Manifest
@@ -38,19 +38,8 @@ module Antenna
         "#{base_filename}.plist",
         "text/xml",
       )
-      
-      # Distribute HTML
-      html = build_html(ipa, manifest_url, app_icon_url)
-      html_url = @distributor.distribute(
-        html.to_s,
-        "#{base_filename}.html",
-        "text/html",
-      )
 
-      # Let distributor clean things up (if necessary)
-      @distributor.teardown if @distributor.respond_to?(:teardown)
-
-      return html_url
+      manifest_url
     end
 
     private
@@ -65,10 +54,6 @@ module Antenna
 
     def build_manifest(ipa, ipa_url, app_icon_url)
       Antenna::Manifest.new(ipa_url, ipa.info_plist, app_icon_url)
-    end
-
-    def build_html(ipa, manifest_url, app_icon_url)
-      Antenna::HTML.new(ipa.info_plist, manifest_url, app_icon_url)
     end
   end
 end

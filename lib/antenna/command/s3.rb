@@ -41,14 +41,14 @@ command :s3 do |c|
 
     s3 = Antenna::Distributor::S3.new(@access_key_id, @secret_access_key, @region, @endpoint)
     distributor = Antenna::Distributor.new(s3)
-    puts distributor.distribute @file, { 
-      :bucket => @bucket, 
-      :create => !!options.create, 
+    distributor.distribute @file, {
+      :bucket => @bucket,
+      :create => !!options.create,
       :public => !!options.public,
-      :expire => options.expires, 
-      :acl    => options.acl, 
-      :base   => options.base 
-    } 
+      :expire => options.expires,
+      :acl    => options.acl,
+      :base   => options.base
+    }
   end
 
   private
